@@ -1,0 +1,396 @@
+OVERVIEW: lld
+
+USAGE: ld.lld [options] file...
+
+OPTIONS:
+  -(                      Alias for --start-group
+  -)                      Alias for --end-group
+  --allow-multiple-definition
+                          Allow multiple definitions
+  --allow-shlib-undefined Allow unresolved references in shared libraries (default when linking a shared library)
+  --android-memtag-heap   Instruct the dynamic loader to enable MTE protection for the heap
+  --android-memtag-mode=<value>
+                          Instruct the dynamic loader to start under MTE mode {async, sync, none}
+  --android-memtag-stack  Instruct the dynamic loader to prepare for MTE stack instrumentation
+  --apply-dynamic-relocs  Apply link-time values for dynamic relocations
+  --as-needed             Only set DT_NEEDED for shared libraries if used
+  --auxiliary=<value>     Set DT_AUXILIARY field to the specified name
+  --Bdynamic              Link against shared libraries (default)
+  --be8                   write a Big Endian ELF file using BE8 format (AArch32 only)
+  --Bno-symbolic          Don't bind default visibility defined symbols locally for -shared (default)
+  --Bshareable            Alias for --shared
+  --Bstatic               Do not link against shared libraries
+  --Bsymbolic-functions   Bind default visibility defined function symbols locally for -shared
+  --Bsymbolic-non-weak-functions
+                          Bind default visibility defined STB_GLOBAL function symbols locally for -shared
+  --Bsymbolic-non-weak    Bind default visibility defined STB_GLOBAL symbols locally for -shared
+  --Bsymbolic             Bind default visibility defined symbols locally for -shared
+  --build-id=[fast,md5,sha1,uuid,0x<hexstring>]
+                          Generate build ID note
+  --build-id              Alias for --build-id=fast
+  -b <value>              Alias for --format
+  --call-graph-ordering-file=<value>
+                          Layout sections to optimize the given callgraph
+  --call-graph-profile-sort=[none,hfsort,cdsort]
+                          Reorder input sections with call graph profile using the specified algorithm (default: cdsort)
+  --call_shared           Alias for --Bdynamic
+  --check-sections        Check section addresses for overlaps (default)
+  --cmse-implib           Make the output library to be a CMSE secure code import library
+  --color-diagnostics=[auto,always,never]
+                          Use colors in diagnostics (default: auto)
+  --color-diagnostics     Alias for --color-diagnostics=always
+  --compress-debug-sections=[none,zlib,zstd]
+                          Compress DWARF debug sections
+  --cref                  Output cross reference table. If -Map is specified, print to the map file
+  --defsym=<symbol>=<value>
+                          Define a symbol alias
+  --demangle              Demangle symbol names (default)
+  --dependency-file=<file>
+                          Write a dependency file
+  --dependent-libraries   Process dependent library specifiers from input files (default)
+  --disable-new-dtags     Disable new dynamic tags
+  --discard-all           Delete all local symbols
+  --discard-locals        Delete temporary local symbols
+  --discard-none          Keep all symbols in the symbol table
+  --dn                    Alias for --Bstatic
+  --dynamic-linker=<value>
+                          Which dynamic linker to use
+  --dynamic-list=<file>   Similar to --export-dynamic-symbol-list. When creating a shared object, this additionally implies -Bsymbolic but does not set DF_SYMBOLIC
+  --dy                    Alias for --Bdynamic
+  --EB                    Select the big-endian format in OUTPUT_FORMAT
+  --eh-frame-hdr          Request creation of .eh_frame_hdr section and PT_GNU_EH_FRAME segment header
+  --EL                    Select the little-endian format in OUTPUT_FORMAT
+  --emit-relocs           Generate relocations in output
+  --enable-new-dtags      Enable new dynamic tags (default)
+  --end-group             Ignored for compatibility with GNU unless you pass --warn-backrefs
+  --end-lib               End a grouping of objects that should be treated as if they were together in an archive
+  --entry=<entry>         Name of entry point symbol
+  --error-handling-script=<value>
+                          Specify an error handling script
+  --error-limit=<value>   Maximum number of errors to emit before stopping (0 = no limit)
+  --error-unresolved-symbols
+                          Report unresolved symbols as errors
+  --exclude-libs=<value>  Exclude static libraries from automatic export
+  --execute-only          Mark executable sections unreadable
+  --export-dynamic-symbol-list=file
+                          Read a list of dynamic symbol patterns. Apply --export-dynamic-symbol on each pattern
+  --export-dynamic-symbol=glob
+                          (executable) Put matched symbols in the dynamic symbol table. (shared object) References to matched non-local STV_DEFAULT symbols shouldn't be bound to definitions within the shared object. Does not imply -Bsymbolic.
+  --export-dynamic        Put symbols in the dynamic symbol table
+  -E                      Alias for --export-dynamic
+  -e <value>              Alias for --entry
+  --fat-lto-objects       Use the .llvm.lto section, which contains LLVM bitcode, in fat LTO object files to perform LTO.
+  --fatal-warnings        Treat warnings as errors
+  --filter=<value>        Set DT_FILTER field to the specified name
+  --fini=<symbol>         Specify a finalizer function
+  --fix-cortex-a53-843419 Apply fixes for AArch64 Cortex-A53 erratum 843419
+  --fix-cortex-a8         Apply fixes for ARM Cortex-A8 erratum 657417
+  --format=[default,elf,binary]
+                          Change the input format of the inputs following this option
+  --fortran-common        Search archive members for definitions to override COMMON symbols (default)
+  -F <value>              Alias for --filter
+  -f <value>              Alias for --auxiliary
+  --gc-sections           Enable garbage collection of unused sections
+  --gdb-index             Generate .gdb_index section
+  --gnu-unique            Enable STB_GNU_UNIQUE symbol binding (default)
+  --hash-style=<value>    Specify hash style (sysv, gnu or both)
+  --help                  Print option help
+  -h <value>              Alias for --soname
+  --icf=all               Enable identical code folding
+  --icf=none              Disable identical code folding (default)
+  --icf=safe              Enable safe identical code folding
+  --ignore-data-address-equality
+                          lld can break the address equality of data
+  --ignore-function-address-equality
+                          lld can break the address equality of functions
+  --image-base=<value>    Set the base address
+  --in-implib=<file>      Read an existing CMSE secure code import library and preserve entry function addresses in the resulting new CMSE secure code import library (optional when creating a CMSE secure image)
+  --init=<symbol>         Specify an initializer function
+  --just-symbols=<value>  Just link symbols
+  --keep-unique=<value>   Do not fold this symbol during ICF
+  --library-path=<value>  Add <dir> to the library search path
+  --library-path <value>  Add <dir> to the library search path
+  --library=<value>       Search for library <libname>
+  --library <value>       Search for library <libname>
+  --load-pass-plugin=<value>
+                          Load passes from plugin library
+  --lto-aa-pipeline=<value>
+                          AA pipeline to run during LTO. Used in conjunction with -lto-newpm-passes
+  --lto-basic-block-sections=<value>
+                          Enable basic block sections for LTO
+  --lto-CGO<cgopt-level>  Codegen optimization level for LTO
+  --lto-cs-profile-file=<value>
+                          Context sensitive profile file path
+  --lto-cs-profile-generate
+                          Perform context sensitive PGO instrumentation
+  --lto-debug-pass-manager
+                          Debug new pass manager
+  --lto-emit-asm          Emit assembly code
+  --lto-known-safe-vtables=<value>
+                          When --lto-validate-all-vtables-have-type-infos is enabled, skip validation on these vtables (_ZTV symbols)
+  --lto-newpm-passes=<value>
+                          Passes to run during LTO
+  --lto-O<opt-level>      Optimization level for LTO
+  --lto-partitions=<value>
+                          Number of LTO codegen partitions
+  --lto-pgo-warn-mismatch turn on warnings about profile cfg mismatch (default)
+  --lto-sample-profile=<value>
+                          Sample profile file path
+  --lto-unique-basic-block-section-names
+                          Give unique names to every basic block section for LTO
+  --lto-validate-all-vtables-have-type-infos
+                          Validate that all vtables have type infos for LTO link
+  --lto-whole-program-visibility
+                          Asserts that the LTO link has whole program visibility
+  --lto=[full,thin]       Set LTO backend
+  -L <dir>                Add <dir> to the library search path
+  -l <libname>            Search for library <libname>
+  --Map=<value>           Print a link map to the specified file
+  --merge-exidx-entries   Enable merging .ARM.exidx entries (default)
+  --mllvm=<value>         Additional arguments to forward to LLVM's option processing
+  --mmap-output-file      Mmap the output file for writing (default)
+  -M                      Alias for --print-map
+  -m <value>              Set target emulation
+  --nmagic                Do not page align sections, link against static libraries.
+  --no-allow-multiple-definition
+                          Do not allow multiple definitions (default)
+  --no-allow-shlib-undefined
+                          Do not allow unresolved references in shared libraries (default when linking an executable)
+  --no-apply-dynamic-relocs
+                          Do not apply link-time values for dynamic relocations (default)
+  --no-as-needed          Always set DT_NEEDED for shared libraries (default)
+  --no-check-sections     Do not check section addresses for overlaps
+  --no-color-diagnostics  Alias for --color-diagnostics=never
+  --no-demangle           Do not demangle symbol names
+  --no-dependent-libraries
+                          Ignore dependent library specifiers from input files
+  --no-dynamic-linker     Inhibit output of .interp section
+  --no-eh-frame-hdr       Do not create .eh_frame_hdr section
+  --no-execute-only       Mark executable sections readable (default)
+  --no-export-dynamic     Do not put symbols in the dynamic symbol table (default)
+  --no-fat-lto-objects    Ignore the .llvm.lto section in relocatable object files (default).
+  --no-fatal-warnings     Do not treat warnings as errors (default)
+  --no-fortran-common     Do not search archive members for definitions to override COMMON symbols
+  --no-gc-sections        Disable garbage collection of unused sections (default)
+  --no-gdb-index          Do not generate .gdb_index section (default)
+  --no-gnu-unique         Disable STB_GNU_UNIQUE symbol binding
+  --no-lto-pgo-warn-mismatch
+                          turn off warnings about profile cfg mismatch
+  --no-lto-unique-basic-block-section-names
+                          Do not give unique names to every basic block section for LTO (default)
+  --no-lto-validate-all-vtables-have-type-infos
+                          Do not validate that all vtables have type infos for LTO link
+  --no-lto-whole-program-visibility
+                          Asserts that the LTO link does not have whole program visibility
+  --no-merge-exidx-entries
+                          Disable merging .ARM.exidx entries
+  --no-mmap-output-file   Do not mmap the output file for writing
+  --no-nmagic             Page align sections (default)
+  --no-omagic             Do not set the text data sections to be writable, page align sections (default)
+  --no-optimize-bb-jumps  Do not remove any direct jumps at the end to the next basic block (default)
+  --no-pcrel-optimize     (PowerPC64) Disable PC-relative optimizations
+  --no-pie                Do not create a position independent executable (default)
+  --no-power10-stubs      Alias for --power10-stubs=no
+  --no-print-gc-sections  Do not list removed unused sections (default)
+  --no-print-icf-sections Do not list identical folded sections (default)
+  --no-relax-gp           Disable global pointer relaxation (default)
+  --no-relax              Disable target-specific relaxations
+  --no-rosegment          Do not put read-only non-executable sections in their own segment
+  --no-toc-optimize       (PowerPC64) Disable TOC related optimizations
+  --no-undefined-version  Report version scripts that refer undefined symbols
+  --no-undefined          Report unresolved symbols even if the linker is creating a shared library
+  --no-use-android-relr-tags
+                          Use SHT_RELR / DT_RELR* tags (default)
+  --no-warn-backrefs      Do not warn about backward symbol references to extract archive members (default)
+  --no-warn-common        Do not warn about duplicate common symbols (default)
+  --no-warn-ifunc-textrel Do not warn about using ifunc symbols with text relocations (default)
+  --no-warn-symbol-ordering
+                          Do not warn about problems with the symbol ordering file
+  --no-warnings           Suppress warnings and cancel --fatal-warnings
+  --no-whole-archive      Do not force load of all members in a static library (default)
+  --noinhibit-exec        Retain the executable output file whenever it is still usable
+  --non_shared            Alias for --Bstatic
+  --nostdlib              Only search directories specified on the command line
+  -N                      Alias for --omagic
+  -n                      Alias for --nmagic
+  --oformat=[elf,binary]  Specify the binary format for the output object file
+  --omagic                Set the text and data sections to be readable and writable, do not page align sections, link against static libraries
+  --opt-remarks-filename <value>
+                          YAML output file for optimization remarks
+  --opt-remarks-format <value>
+                          The format used for serializing remarks (default: YAML)
+  --opt-remarks-hotness-threshold=<value>
+                          Minimum profile count required for an optimization remark to be output. Use 'auto' to apply the threshold from profile summary.
+  --opt-remarks-passes <value>
+                          Regex for the passes that need to be serialized to the output file
+  --opt-remarks-with-hotness
+                          Include hotness information in the optimization remarks file
+  --optimize-bb-jumps     Remove direct jumps at the end to the next basic block
+  --orphan-handling=<value>
+                          Control how orphan sections are handled when linker script used
+  --out-implib=<file>     Output the CMSE secure code import library to <file> (required when creating a CMSE secure image)
+  --output=<value>        Alias for -o
+  --output <value>        Alias for -o
+  -O <value>              Optimize output file size
+  -o <path>               Path to file to write output
+  --pack-dyn-relocs=[none,android,relr,android+relr]
+                          Pack dynamic relocations in the given format
+  --package-metadata=<value>
+                          Emit package metadata note
+  --pcrel-optimize        (PowerPC64) Enable PC-relative optimizations (default)
+  --pic-executable        Alias for --pie
+  --pic-veneer            Always generate position independent thunks (veneers)
+  --pie                   Create a position independent executable
+  --plugin-opt=-<value>   Specify an LLVM option for compatibility with LLVMgold.so
+  --plugin-opt=cs-profile-generate
+                          Alias for --lto-cs-profile-generate
+  --plugin-opt=cs-profile-path=<value>
+                          Alias for --lto-cs-profile-file
+  --plugin-opt=debug-pass-manager
+                          Alias for --lto-debug-pass-manager
+  --plugin-opt=disable-verify
+                          Alias for --disable-verify
+  --plugin-opt=dwo_dir=<value>
+                          Directory to store .dwo files when LTO and debug fission are used
+  --plugin-opt=emit-asm   Alias for --lto-emit-asm
+  --plugin-opt=jobs=<value>
+                          Alias for --thinlto-jobs=
+  --plugin-opt=lto-partitions=<value>
+                          Alias for --lto-partitions
+  --plugin-opt=obj-path=<value>
+                          Alias for --lto-obj-path=
+  --plugin-opt=opt-remarks-filename=<value>
+                          Alias for --opt-remarks-filename
+  --plugin-opt=opt-remarks-format=<value>
+                          Alias for --opt-remarks-format
+  --plugin-opt=opt-remarks-hotness-threshold=<value>
+                          Alias for --opt-remarks-hotness-threshold
+  --plugin-opt=opt-remarks-passes=<value>
+                          Alias for --opt-remarks-passes
+  --plugin-opt=opt-remarks-with-hotness
+                          Alias for --opt-remarks-with_hotness
+  --plugin-opt=O<value>   Alias for --lto-O
+  --plugin-opt=sample-profile=<value>
+                          Alias for --lto-sample-profile
+  --plugin-opt=save-temps Alias for --save-temps
+  --plugin-opt=stats-file=<value>
+                          Filename to write LTO statistics to
+  --plugin-opt=thinlto-emit-imports-files
+                          Alias for --thinlto-emit-imports-files
+  --plugin-opt=thinlto-index-only=<value>
+                          Alias for --thinlto-index-only=
+  --plugin-opt=thinlto-index-only
+                          Alias for --thinlto-index-only
+  --plugin-opt=thinlto-object-suffix-replace=<value>
+                          Alias for --thinlto-object-suffix-replace=
+  --plugin-opt=thinlto-prefix-replace=<value>
+                          Alias for --thinlto-prefix-replace=
+  --plugin=<value>        Ignored for compatibility with GNU linkers
+  --pop-state             Restore the states saved by --push-state
+  --power10-stubs=<mode>  Whether to use Power10 instructions in call stubs for R_PPC64_REL24_NOTOC and TOC/NOTOC interworking (yes (default): use; no: don't use). "auto" is currently the same as "yes"
+  --power10-stubs         Alias for --power10-stubs=auto
+  --print-archive-stats=<value>
+                          Write archive usage statistics to the specified file. Print the numbers of members and extracted members for each archive
+  --print-gc-sections     List removed unused sections
+  --print-icf-sections    List identical folded sections
+  --print-map             Print a link map to the standard output
+  --print-memory-usage    Report target memory usage
+  --print-symbol-order=<value>
+                          Print a symbol order specified by --call-graph-ordering-file into the specified file
+  --push-state            Save the current state of --as-needed, -static and --whole-archive
+  -q                      Alias for --emit-relocs
+  --relax-gp              Enable global pointer relaxation
+  --relax                 Enable target-specific relaxations if supported (default)
+  --relocatable           Create relocatable object file
+  --remap-inputs-file=<file>
+                          Each line contains 'from-glob=to-file'. An input file matching <from-glob> is remapped to <to-file>
+  --remap-inputs=<from-glob>=<to-file>
+                          Remap input files matching <from-glob> to <to-file>
+  --reproduce=<value>     Write tar file containing inputs and command to reproduce link
+  --retain-symbols-file=<file>
+                          Retain only the symbols listed in the file
+  --rosegment             Put read-only non-executable sections in their own segment (default)
+  --rpath=<value>         Add a DT_RUNPATH to the output
+  --rsp-quoting=[posix,windows]
+                          Quoting style for response files
+  -R <value>              Alias for --rpath
+  -r                      Alias for --relocatable
+  --save-temps=<value>    Save select intermediate LTO compilation results
+  --save-temps            Save intermediate LTO compilation results
+  --script=<value>        Read linker script
+  --section-start=<address>
+                          Set address of section
+  --shared                Build a shared object
+  --shuffle-sections=<section-glob>=<seed>
+                          Shuffle matched sections using the given seed before mapping them to the output sections. If -1, reverse the section order. If 0, use a random seed
+  --soname=<value>        Set DT_SONAME
+  --sort-section=<value>  Specifies sections sorting rule when linkerscript is used
+  --split-stack-adjust-size=<value>
+                          Specify adjustment to stack size when a split-stack function calls a non-split-stack function
+  --start-group           Ignored for compatibility with GNU unless you pass --warn-backrefs
+  --start-lib             Start a grouping of objects that should be treated as if they were together in an archive
+  --static                Alias for --Bstatic
+  --strip-all             Strip all symbols. Implies --strip-debug
+  --strip-debug           Strip debugging information
+  --symbol-ordering-file=<value>
+                          Layout sections to place symbols in the order specified by symbol ordering file
+  --sysroot=<value>       Set the system root
+  -S                      Alias for --strip-debug
+  -s                      Alias for --strip-all
+  --target1-abs           Interpret R_ARM_TARGET1 as R_ARM_ABS32 (default)
+  --target1-rel           Interpret R_ARM_TARGET1 as R_ARM_REL32
+  --target2=<type>        Interpret R_ARM_TARGET2 as <type>, where <type> is one of rel, abs, or got-rel
+  --Tbss=<value>          Same as --section-start with .bss as the sectionname
+  --Tdata=<value>         Same as --section-start with .data as the sectionname
+  --thinlto-cache-dir=<value>
+                          Path to ThinLTO cached object file directory
+  --thinlto-cache-policy=<value>
+                          Pruning policy for the ThinLTO cache
+  --thinlto-jobs=<value>  Number of ThinLTO jobs. Default to --threads=
+  --thinlto-single-module=<value>
+                          Specify a single module to compile in ThinLTO mode, for debugging only
+  --threads=<value>       Number of threads. '1' disables multi-threading. By default all available hardware threads are used
+  --time-trace-granularity=<value>
+                          Minimum time granularity (in microseconds) traced by time profiler
+  --time-trace=<file>     Record time trace to <file>
+  --time-trace            Record time trace to file next to output
+  --toc-optimize          (PowerPC64) Enable TOC related optimizations (default)
+  --trace-symbol=<value>  Trace references to symbols
+  --trace                 Print the names of the input files
+  --Ttext=<value>         Same as --section-start with .text as the sectionname
+  -T <value>              Alias for --script
+  -t                      Alias for --trace
+  --undefined-glob=<pattern>
+                          Force undefined symbol during linking
+  --undefined-version     Allow unused version in version script (disabled by default)
+  --undefined=<symbol>    Force undefined symbol during linking
+  --unique                Creates a separate output section for every orphan input section
+  --unresolved-symbols=<value>
+                          Determine how to handle unresolved symbols
+  --use-android-relr-tags Use SHT_ANDROID_RELR / DT_ANDROID_RELR* tags instead of SHT_RELR / DT_RELR*
+  -u <value>              Alias for --undefined
+  --verbose               Verbose mode
+  --version-script=<value>
+                          Read a version script
+  --version               Display the version number and exit
+  --vs-diagnostics        Format diagnostics for Visual Studio compatibility
+  -V                      Alias for -v
+  -v                      Display the version number
+  --warn-backrefs-exclude=<glob>
+                          Glob describing an archive (or an object file within --start-lib) which should be ignored for --warn-backrefs.
+  --warn-backrefs         Warn about backward symbol references to extract archive members
+  --warn-common           Warn about duplicate common symbols
+  --warn-ifunc-textrel    Warn about using ifunc symbols with text relocations
+  --warn-symbol-ordering  Warn about problems with the symbol ordering file (default)
+  --warn-unresolved-symbols
+                          Report unresolved symbols as warnings
+  --whole-archive         Force load of all members in a static library
+  --why-extract=<value>   Print to a file about why archive members are extracted
+  --wrap=<symbol>         Redirect symbol references to __wrap_symbol and __real_symbol references to symbol
+  -w                      Alias for --no-warnings
+  -X                      Alias for --discard-locals
+  -x                      Alias for --discard-all
+  -y <value>              Alias for --trace-symbol
+  -z <option>             Linker option extensions
+
+ld.lld: supported targets: elf
